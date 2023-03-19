@@ -1,3 +1,4 @@
+
 ## International Breweries 
 
 **My queries are intended to assist the Brewery in identifying the top-performing sales representative, the most devoted customer, and enhancing business decisions regarding optimal products.**
@@ -15,8 +16,7 @@ Write an SQL query to fetch “BRANDS” from breweries table in upper case.
 
 
 
-Write an SQL query to print all details from the breweries table; 
---sort the QUANTITY column in Ascending order and the COSTS column in Descending order
+Write an SQL query to print all details from the breweries table; sort the QUANTITY column in Ascending order and the COSTS column in Descending order
 
 > Select * FROM breweries
 ORDER BY quantity ASC, cost DESC
