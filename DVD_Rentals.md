@@ -1,19 +1,17 @@
 
 # DVD-Rentals
 
-**1. Question:** 
+**Question:** 
 We have 2 staff members, with staffIDs 1 and 2.
 We want to give a bonus to the staff member that handled the most payments. (Most in terms of number of payments 
 processed, not total dollar amount).
-
-
 
 > SELECT staff_id, COUNT(amount) as "Number of Transactions" <br>
 FROM payment
 GROUP BY staff_id;
 
 
-**2. Question:** 
+**Question:** 
 Corporate HQ is conducting a study on the relationship between cost and a movie MPAA rating (e.g. G, PG, R, etc...). 
 What is the average replacement cost per MPAA rating? 
 
@@ -22,7 +20,45 @@ FROM film <br>
 GROUP BY rating;
 
 
-**3. Question:** 
+**Question:**
+How many payments occurred on a Monday?
+
+> SELECT COUNT (*) AS "Count of all Payments on Monday"
+FROM payment
+WHERE EXTRACT (dow FROM payment_date) = 1
+
+
+**Question:**
+Get the percenatge of the rental cost on the replacement cost. 
+
+> SELECT ROUND(rental_rate/replacement_cost, 2) * 100
+percentage_ratio
+FROM film
+
+
+**Question:**
+If 10% of the replacement cost is the deposit made on each rented movie, how much is the highest deposit charge?
+
+> SELECT DISTINCT ROUND(replacement_cost * 0.1, 1) depost_from_film
+FROM film
+ORDER BY 1 DESC
+
+
+**Question:**
+During which months of the year did payments occur?
+
+> SELECT DISTINCT (TO_CHAR (payment_date, 'Month')) AS "Payment Months"
+FROM payment
+
+
+**Question:**
+What Years did all the payment coccur?
+
+> SELECT DISTINCT EXTRACT (year FROM payment_date) 
+FROM payment
+
+
+**Question:** 
 We are running a promotion to reward our top 5 customers with coupons. What are the customer IDs of the top 5 customers by total spend?
 
 > SELECT customer_id, SUM(amount) <br>
@@ -40,7 +76,7 @@ ORDER BY 2 desc <br>
 LIMIT 5;
 
 
-**4. Question:** 
+**Question:** 
 We are launching a platinum service for our most loyal customers. We will assign platinum status to customers that have had 40 or more transaction payments. What customer_ids are eligible for platinum status?
 
 > SELECT customer_id, COUNT(amount) <br>
@@ -49,7 +85,7 @@ GROUP BY customer_id <br>
 HAVING COUNT(amount) > 40 or COUNT(amount) = 40;
 
 
-**5.  Question:**
+**Question:**
 What are the customer IDs of customers who have spent more than $100 in payment transations with our staff_id member 2?
 
 > SELECT customer_id, SUM(amount) <br>
@@ -66,7 +102,7 @@ GROUP BY customer_id <br>
 HAVING SUM(amount)>100;
 
 
-**6.  Question:**
+**Question:**
 Return the customer IDs of customers who have spent at least $110 with the staff member who has an ID of 2
 
 > SELECT customer_id, SUM(amount) <br> 
@@ -76,7 +112,7 @@ GROUP BY customer_id <br>
 HAVING SUM(amount) >= 110;
 
 
-**7.  Question:**
+**Question:**
 How many films begin with the letter J?
 
 > SELECT COUNT(title) AS "No. of Film_Tiles Beginning with J" <br>
@@ -84,7 +120,7 @@ FROM film <br>
 WHERE title LIKE 'J%';
 
 
-**8.  Question:**
+**Question:**
 What customer has the highest customer ID number whose name starts with an 'E' and has an address ID lower than 500?
 
 > SELECT * FROM customer <br>
@@ -92,7 +128,7 @@ WHERE first_name LIKE 'E%' AND address_id < 500 <br>
 ORDER BY customer_id DESC <br>
 LIMIT 1;
 
-**9.  Question:**
+**Question:**
 California sales tax laws have changed and we need to alert our custimers to this through email. What are the emails of nthe customers who live in California?
 
 > SELECT district, customer_id, first_name, last_name, email <br>
@@ -108,7 +144,7 @@ WHERE address.address_id = customer.address_id <br>
 and district = 'California';
 
 
-**10.  Question:**
+**Question:**
 A customer walks in and is a huge fan of the actor "Nick Wahlberg" and wants to know which movies he is in.
 Get a list of all the movies "Nick Wahlberg" has been in.
 
