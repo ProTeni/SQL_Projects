@@ -20,7 +20,7 @@ AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
 
 **OR**
 
-SELECT title, rental_rate 
+> SELECT title, rental_rate 
 FROM film 
 INNER JOIN inventory
 ON inventory.film_id = film.film_id
