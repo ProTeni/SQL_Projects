@@ -1,25 +1,8 @@
 
 # DVD-Rentals
 
-**Question:**
 The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
 
-> WITH avg_rental_rate AS (  <br>
-SELECT AVG(rental_rate) AS avg_rate  <br>
-FROM film  <br>
-)
-SELECT title, rental_rate  <br>
-FROM film   <br>
-INNER JOIN inventory  <br>
-ON inventory.film_id = film.film_id  <br>
-INNER JOIN rental  <br>
-ON rental.inventory_id = inventory.inventory_id  <br>
-CROSS JOIN avg_rental_rate  <br>
-WHERE rental_rate > avg_rental_rate.avg_rate  <br>
-AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';  <br>
-
-
-**OR**
 
 > SELECT title, rental_rate  <br>
 FROM film  <br>
@@ -34,8 +17,27 @@ WHERE EXISTS (  <br>
 )  <br>
 AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
 
+**OR**
 
-**Question:** 
+> CTE
+
+```
+WITH avg_rental_rate AS ( 
+   SELECT AVG(rental_rate) AS avg_rate  
+   FROM film  
+)
+SELECT title, rental_rate  
+FROM film   
+INNER JOIN inventory  
+ON inventory.film_id = film.film_id  
+INNER JOIN rental  
+ON rental.inventory_id = inventory.inventory_id  
+CROSS JOIN avg_rental_rate  
+WHERE rental_rate > avg_rental_rate.avg_rate  
+AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
+```
+
+
 We have 2 staff members, with staffIDs 1 and 2.
 We want to give a bonus to the staff member that handled the most payments. (Most in terms of number of payments 
 processed, not total dollar amount).
@@ -45,7 +47,6 @@ FROM payment  <br>
 GROUP BY staff_id;
 
 
-**Question:** 
 Corporate HQ is conducting a study on the relationship between cost and a movie MPAA rating (e.g. G, PG, R, etc...). 
 What is the average replacement cost per MPAA rating? 
 
@@ -54,14 +55,12 @@ FROM film <br>
 GROUP BY rating;
 
 
-**Question:**
 How many payments occurred on a Monday?
 
 > SELECT COUNT (*) AS "Count of all Payments on Monday"  <br>
 FROM payment  <br>
 WHERE EXTRACT (dow FROM payment_date) = 1
 
-**Question:**
 Return a query that returns the first and last name of customers who made payments greater than $15
 
 > SELECT first_name, last_name  <br>
@@ -80,7 +79,6 @@ WHERE c.customer_id = p.customer_id  <br>
 AND amount > 10)
 
 
-**Question:**
 Get the percenatge of the rental cost on the replacement cost. 
 
 > SELECT ROUND(rental_rate/replacement_cost, 2) * 100  <br>
@@ -88,7 +86,6 @@ percentage_ratio  <br>
 FROM film
 
 
-**Question:**
 If 10% of the replacement cost is the deposit made on each rented movie, how much is the highest deposit charge?
 
 > SELECT DISTINCT ROUND(replacement_cost * 0.1, 1) depost_from_film  <br>
@@ -96,13 +93,11 @@ FROM film  <br>
 ORDER BY 1 DESC
 
 
-**Question:**
 During which months of the year did payments occur?
 
 > SELECT DISTINCT (TO_CHAR (payment_date, 'Month')) AS "Payment Months"  <br>
 FROM payment
 
-**Question:**
 Return a query that returns the first and last name of customers who made any payments less than $11
 
 > SELECT first_name, last_name  <br>
@@ -113,14 +108,13 @@ WHERE c.customer_id = p.customer_id  <br>
 AND amount < 11)
 
 
-**Question:**
 What Years did all the payment occur?
 
 > SELECT DISTINCT EXTRACT (year FROM payment_date)  <br>
 FROM payment
 
 
-**Question:** 
+ 
 We are running a promotion to reward our top 5 customers with coupons. What are the customer IDs of the top 5 customers by total spend?
 
 > SELECT customer_id, SUM(amount) <br>
@@ -138,7 +132,6 @@ ORDER BY 2 desc <br>
 LIMIT 5;
 
 
-**Question:** 
 We are launching a platinum service for our most loyal customers. We will assign platinum status to customers that have had 40 or more transaction payments. What customer_ids are eligible for platinum status?
 
 > SELECT customer_id, COUNT(amount) <br>
@@ -147,7 +140,6 @@ GROUP BY customer_id <br>
 HAVING COUNT(amount) > 40 or COUNT(amount) = 40;
 
 
-**Question:**
 What are the customer IDs of customers who have spent more than $100 in payment transations with our staff_id member 2?
 
 > SELECT customer_id, SUM(amount) <br>
@@ -164,7 +156,6 @@ GROUP BY customer_id <br>
 HAVING SUM(amount)>100;
 
 
-**Question:**
 Return the film_id and title of movies rented out between the 29th and 30th of April.
 
 > SELECT title, description, film_id  <br>
@@ -178,7 +169,6 @@ WHERE return_date BETWEEN '2005-05-29' AND '2005-05-30')  <br>
 ORDER BY title
 
 
-**Question:**
 Return the customer IDs of customers who have spent at least $110 with the staff member who has an ID of 2
 
 > SELECT customer_id, SUM(amount) <br> 
@@ -188,7 +178,6 @@ GROUP BY customer_id <br>
 HAVING SUM(amount) >= 110;
 
 
-**Question:**
 How many films begin with the letter J?
 
 > SELECT COUNT(title) AS "No. of Film_Tiles Beginning with J" <br>
@@ -196,7 +185,6 @@ FROM film <br>
 WHERE title LIKE 'J%';
 
 
-**Question:**
 What customer has the highest customer ID number whose name starts with an 'E' and has an address ID lower than 500?
 
 > SELECT * FROM customer <br>
@@ -205,7 +193,6 @@ ORDER BY customer_id DESC <br>
 LIMIT 1;
 
 
-**Question:**
 California sales tax laws have changed and we need to alert our custimers to this through email. What are the emails of nthe customers who live in California?
 
 > SELECT district, customer_id, first_name, last_name, email <br>
@@ -221,7 +208,6 @@ WHERE address.address_id = customer.address_id <br>
 and district = 'California';
 
 
-**Question:**
 Write a simple query that retunrs the title and rental_rates of movies above the average rental rate.
 
 > SELECT title, rental_rate  <br>
@@ -229,7 +215,7 @@ FROM film  <br>
 WHERE rental_rate >  <br>
 (SELECT AVG(rental_rate) FROM film)
 
-**Question:**
+
 A customer walks in and is a huge fan of the actor "Nick Wahlberg" and wants to know which movies he is in.
 Get a list of all the movies "Nick Wahlberg" has been in.
 
