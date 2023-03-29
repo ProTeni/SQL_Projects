@@ -5,8 +5,8 @@
 The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
 
 > WITH avg_rental_rate AS (  <br>
-      SELECT AVG(rental_rate) AS avg_rate  <br>
-      FROM film  <br>
+SELECT AVG(rental_rate) AS avg_rate  <br>
+FROM film  <br>
 )
 SELECT title, rental_rate  <br>
 FROM film   <br>
@@ -17,6 +17,7 @@ ON rental.inventory_id = inventory.inventory_id  <br>
 CROSS JOIN avg_rental_rate  <br>
 WHERE rental_rate > avg_rental_rate.avg_rate  <br>
 AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';  <br>
+
 
 **OR**
 
