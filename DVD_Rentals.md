@@ -5,8 +5,8 @@
 The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
 
 > WITH avg_rental_rate AS (  <br>
-  SELECT AVG(rental_rate) AS avg_rate  <br>
-  FROM film  <br>
+      SELECT AVG(rental_rate) AS avg_rate  <br>
+      FROM film  <br>
 )
 SELECT title, rental_rate  <br>
 FROM film   <br>
