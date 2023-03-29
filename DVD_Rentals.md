@@ -4,33 +4,33 @@
 **Question:**
 The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
 
-> WITH avg_rental_rate AS (
-  SELECT AVG(rental_rate) AS avg_rate
-  FROM film
+> WITH avg_rental_rate AS (  <br>
+  SELECT AVG(rental_rate) AS avg_rate  <br>
+  FROM film  <br>
 )
-SELECT title, rental_rate
-FROM film 
-INNER JOIN inventory
-ON inventory.film_id = film.film_id
-INNER JOIN rental
-ON rental.inventory_id = inventory.inventory_id
-CROSS JOIN avg_rental_rate
-WHERE rental_rate > avg_rental_rate.avg_rate
-AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
+SELECT title, rental_rate  <br>
+FROM film   <br>
+INNER JOIN inventory  <br>
+ON inventory.film_id = film.film_id  <br>
+INNER JOIN rental  <br>
+ON rental.inventory_id = inventory.inventory_id  <br>
+CROSS JOIN avg_rental_rate  <br>
+WHERE rental_rate > avg_rental_rate.avg_rate  <br>
+AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';  <br>
 
 **OR**
 
-> SELECT title, rental_rate 
-FROM film 
-INNER JOIN inventory
-ON inventory.film_id = film.film_id
-INNER JOIN rental
-ON rental.inventory_id = inventory.inventory_id
-WHERE EXISTS (
-  SELECT 1
-  FROM film
-  WHERE rental_rate > (SELECT AVG(rental_rate) FROM film)
-)
+> SELECT title, rental_rate  <br>
+FROM film  <br>
+INNER JOIN inventory  <br>
+ON inventory.film_id = film.film_id  <br>
+INNER JOIN rental  <br>
+ON rental.inventory_id = inventory.inventory_id  <br>
+WHERE EXISTS (  <br>
+  SELECT 1  <br>
+  FROM film  <br>
+  WHERE rental_rate > (SELECT AVG(rental_rate) FROM film)  <br>
+)  <br>
 AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
 
 
@@ -40,7 +40,7 @@ We want to give a bonus to the staff member that handled the most payments. (Mos
 processed, not total dollar amount).
 
 > SELECT staff_id, COUNT(amount) as "Number of Transactions" <br>
-FROM payment
+FROM payment  <br>
 GROUP BY staff_id;
 
 
@@ -56,66 +56,66 @@ GROUP BY rating;
 **Question:**
 How many payments occurred on a Monday?
 
-> SELECT COUNT (*) AS "Count of all Payments on Monday"
-FROM payment
+> SELECT COUNT (*) AS "Count of all Payments on Monday"  <br>
+FROM payment  <br>
 WHERE EXTRACT (dow FROM payment_date) = 1
 
 **Question:**
 Return a query that returns the first and last name of customers who made payments greater than $15
 
-> SELECT first_name, last_name
-FROM customer c
-INNER JOIN payment P
-ON c.customer_id = p.customer_id
+> SELECT first_name, last_name  <br>
+FROM customer c  <br>
+INNER JOIN payment P  <br>
+ON c.customer_id = p.customer_id  <br>
 AND amount > 10
 
 **OR** 
 
-> SELECT first_name, last_name
-FROM customer AS c
-WHERE EXISTS
-(SELECT * FROM payment AS p
-WHERE c.customer_id = p.customer_id
+> SELECT first_name, last_name  <br>
+FROM customer AS c  <br>
+WHERE EXISTS  <br>
+(SELECT * FROM payment AS p  <br>
+WHERE c.customer_id = p.customer_id  <br>
 AND amount > 10)
 
 
 **Question:**
 Get the percenatge of the rental cost on the replacement cost. 
 
-> SELECT ROUND(rental_rate/replacement_cost, 2) * 100
-percentage_ratio
+> SELECT ROUND(rental_rate/replacement_cost, 2) * 100  <br>
+percentage_ratio  <br>
 FROM film
 
 
 **Question:**
 If 10% of the replacement cost is the deposit made on each rented movie, how much is the highest deposit charge?
 
-> SELECT DISTINCT ROUND(replacement_cost * 0.1, 1) depost_from_film
-FROM film
+> SELECT DISTINCT ROUND(replacement_cost * 0.1, 1) depost_from_film  <br>
+FROM film  <br>
 ORDER BY 1 DESC
 
 
 **Question:**
 During which months of the year did payments occur?
 
-> SELECT DISTINCT (TO_CHAR (payment_date, 'Month')) AS "Payment Months"
+> SELECT DISTINCT (TO_CHAR (payment_date, 'Month')) AS "Payment Months"  <br>
 FROM payment
 
 **Question:**
 Return a query that returns the first and last name of customers who made any payments less than $11
 
-> SELECT first_name, last_name
-FROM customer AS c
-WHERE EXISTS
-(SELECT * FROM payment AS p
-WHERE c.customer_id = p.customer_id
+> SELECT first_name, last_name  <br>
+FROM customer AS c  <br>
+WHERE EXISTS  <br>
+(SELECT * FROM payment AS p  <br>
+WHERE c.customer_id = p.customer_id  <br>
 AND amount < 11)
 
 
 **Question:**
 What Years did all the payment occur?
 
-> SELECT DISTINCT EXTRACT (year FROM payment_date) 
+> SELECT DISTINCT EXTRACT (year FROM payment_date)  <br>
 FROM payment
 
 
@@ -166,14 +166,14 @@ HAVING SUM(amount)>100;
 **Question:**
 Return the film_id and title of movies rented out between the 29th and 30th of April.
 
-> SELECT title, description, film_id
-FROM film
-WHERE film_id IN
-(SELECT inventory.film_id
-FROM RENTAL 
-INNER JOIN inventory
-ON inventory.inventory_id = rental.inventory_id
-WHERE return_date BETWEEN '2005-05-29' AND '2005-05-30')
+> SELECT title, description, film_id  <br>
+FROM film  <br>
+WHERE film_id IN  <br>
+(SELECT inventory.film_id  <br>
+FROM RENTAL  <br>
+INNER JOIN inventory  <br>
+ON inventory.inventory_id = rental.inventory_id  <br>
+WHERE return_date BETWEEN '2005-05-29' AND '2005-05-30')  <br>
 ORDER BY title
 
 
@@ -223,9 +223,9 @@ and district = 'California';
 **Question:**
 Write a simple query that retunrs the title and rental_rates of movies above the average rental rate.
 
-> SELECT title, rental_rate 
-FROM film
-WHERE rental_rate > 
+> SELECT title, rental_rate  <br>
+FROM film  <br>
+WHERE rental_rate >  <br>
 (SELECT AVG(rental_rate) FROM film)
 
 **Question:**
