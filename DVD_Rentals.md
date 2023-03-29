@@ -1,6 +1,39 @@
 
 # DVD-Rentals
 
+**Question:**
+The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
+
+> WITH avg_rental_rate AS (
+  SELECT AVG(rental_rate) AS avg_rate
+  FROM film
+)
+SELECT title, rental_rate
+FROM film 
+INNER JOIN inventory
+ON inventory.film_id = film.film_id
+INNER JOIN rental
+ON rental.inventory_id = inventory.inventory_id
+CROSS JOIN avg_rental_rate
+WHERE rental_rate > avg_rental_rate.avg_rate
+AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
+
+**OR**
+
+SELECT title, rental_rate 
+FROM film 
+INNER JOIN inventory
+ON inventory.film_id = film.film_id
+INNER JOIN rental
+ON rental.inventory_id = inventory.inventory_id
+WHERE EXISTS (
+  SELECT 1
+  FROM film
+  WHERE rental_rate > (SELECT AVG(rental_rate) FROM film)
+)
+AND rental_date >= '2005-06-01' AND rental_date <= '2005-12-01';
+
+
 **Question:** 
 We have 2 staff members, with staffIDs 1 and 2.
 We want to give a bonus to the staff member that handled the most payments. (Most in terms of number of payments 
@@ -27,6 +60,24 @@ How many payments occurred on a Monday?
 FROM payment
 WHERE EXTRACT (dow FROM payment_date) = 1
 
+**Question:**
+Return a query that returns the first and last name of customers who made payments greater than $15
+
+> SELECT first_name, last_name
+FROM customer c
+INNER JOIN payment P
+ON c.customer_id = p.customer_id
+AND amount > 10
+
+**OR** 
+
+> SELECT first_name, last_name
+FROM customer AS c
+WHERE EXISTS
+(SELECT * FROM payment AS p
+WHERE c.customer_id = p.customer_id
+AND amount > 10)
+
 
 **Question:**
 Get the percenatge of the rental cost on the replacement cost. 
@@ -50,9 +101,19 @@ During which months of the year did payments occur?
 > SELECT DISTINCT (TO_CHAR (payment_date, 'Month')) AS "Payment Months"
 FROM payment
 
+**Question:**
+Return a query that returns the first and last name of customers who made any payments less than $11
+
+> SELECT first_name, last_name
+FROM customer AS c
+WHERE EXISTS
+(SELECT * FROM payment AS p
+WHERE c.customer_id = p.customer_id
+AND amount < 11)
+
 
 **Question:**
-What Years did all the payment coccur?
+What Years did all the payment occur?
 
 > SELECT DISTINCT EXTRACT (year FROM payment_date) 
 FROM payment
@@ -103,6 +164,20 @@ HAVING SUM(amount)>100;
 
 
 **Question:**
+Return the film_id and title of movies rented out between the 29th and 30th of April.
+
+> SELECT title, description, film_id
+FROM film
+WHERE film_id IN
+(SELECT inventory.film_id
+FROM RENTAL 
+INNER JOIN inventory
+ON inventory.inventory_id = rental.inventory_id
+WHERE return_date BETWEEN '2005-05-29' AND '2005-05-30')
+ORDER BY title
+
+
+**Question:**
 Return the customer IDs of customers who have spent at least $110 with the staff member who has an ID of 2
 
 > SELECT customer_id, SUM(amount) <br> 
@@ -128,6 +203,7 @@ WHERE first_name LIKE 'E%' AND address_id < 500 <br>
 ORDER BY customer_id DESC <br>
 LIMIT 1;
 
+
 **Question:**
 California sales tax laws have changed and we need to alert our custimers to this through email. What are the emails of nthe customers who live in California?
 
@@ -143,6 +219,14 @@ FROM address, customer <br>
 WHERE address.address_id = customer.address_id <br>
 and district = 'California';
 
+
+**Question:**
+Write a simple query that retunrs the title and rental_rates of movies above the average rental rate.
+
+> SELECT title, rental_rate 
+FROM film
+WHERE rental_rate > 
+(SELECT AVG(rental_rate) FROM film)
 
 **Question:**
 A customer walks in and is a huge fan of the actor "Nick Wahlberg" and wants to know which movies he is in.
