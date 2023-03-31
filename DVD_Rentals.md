@@ -86,6 +86,15 @@ percentage_ratio  <br>
 FROM film
 
 
+Write a query that returns the title of each movie along with other movie titles that's got the same movie length with each of the movie.
+
+> SELECT f1.title, f2.title, f1.length <br>
+FROM film f1  <br>
+JOIN film f2  <br>
+ON f1.film_id != f2.film_id  <br>
+AND f1.length = f2.length  <br>
+
+
 If 10% of the replacement cost is the deposit made on each rented movie, how much is the highest deposit charge?
 
 > SELECT DISTINCT ROUND(replacement_cost * 0.1, 1) depost_from_film  <br>
