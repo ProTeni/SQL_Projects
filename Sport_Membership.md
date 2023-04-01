@@ -33,7 +33,7 @@ WHERE name LIKE '%Tennis%'
 How can you retrieve the details of facilities with ID 1 and 5? *without using the OR operator*
 
 
-> ELECT * FROM cd.facilities <br>
+> SELECT * FROM cd.facilities <br>
 WHERE facid IN (1, 5)
 
 
@@ -49,7 +49,7 @@ WHERE joindate > '2012-09-01'
 
 How can you produce an ordered list of the first 10 surnames in the members table? The list must not contain duplicates.
 
- SELECT DISTINCT surname <br>
+> SELECT DISTINCT surname <br>
 FROM cd.members <br>
 ORDER BY 1 <br>
 LIMIT 10
