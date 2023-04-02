@@ -123,6 +123,40 @@ What Years did all the payment occur?
 FROM payment
 
 
+
+Write a query that categorizes our movies per price. Where movies costing $0.99 are the bargains, movies costing $2.99 are the normal, and movies costing $4.99 are the premium
+
+
+> SELECT  <br>
+ SUM(CASE rental_rate WHEN 0.99 THEN 1 <br>
+  ELSE 0  <br>
+  END) AS Bargains,  <br>
+  SUM(CASE rental_rate WHEN 2.99 THEN 1  <br>
+  ELSE 0  <br>
+  END) AS Normal,  <br>
+  SUM(CASE rental_rate WHEN 4.99 THEN 1  <br>
+  ELSE 0  <br>
+  END) AS Premium  <br>
+FROM film	
+	
+	
+
+Sum up the different movies we have per Ratings (R, PG-13 and PG).
+
+
+> SELECT  <br>
+	SUM(CASE rating WHEN 'R' THEN 1  <br>
+	   ELSE 0  <br>
+	   END) AS r,  <br>
+	SUM(CASE rating WHEN 'PG' THEN 1  <br>
+		ELSE 0  <br>
+		END) AS pg,  <br>
+	SUM(CASE rating WHEN 'PG-13' THEN 1  <br>
+	   ELSE 0  <br>
+	   END) AS pg13  <br>
+FROM film
+
+
  
 We are running a promotion to reward our top 5 customers with coupons. What are the customer IDs of the top 5 customers by total spend?
 
