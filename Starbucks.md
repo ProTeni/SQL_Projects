@@ -16,27 +16,27 @@ Membership cards were also analyzed to enable efficient tracking of customers fr
 - Next, I created a comprehensive table schema on Postgres SQL,
 
 **The table schema**
-> CREATE TABLE starbucks(
-customer_id SERIAL primary key,
-gender VARCHAR,
-age SMALLINT,
-current_status VARCHAR,
-annual_income BIGINT,
-visit_frequency VARCHAR,
-preferred_eating_method VARCHAR,
-duration_per_visit VARCHAR,
-nearest_branch VARCHAR,
-membership_card BOOLEAN,
-starbucks_products VARCHAR,
-brand_quality VARCHAR,
-price_rate VARCHAR,
-promotion_impact VARCHAR,
-ambience_rate VARCHAR,
-wifi_quality VARCHAR,
-service_rate VARCHAR,
-invite_friends_to_starbucks VARCHAR,
-promotion_source VARCHAR,
-continued_purchase_at_starbucks BOOLEAN
+> CREATE TABLE starbucks(  <br>
+    customer_id SERIAL primary key,  <br>
+    gender VARCHAR,  <br>
+    age SMALLINT,  <br>
+    current_status VARCHAR,  <br>
+    annual_income BIGINT,  <br>
+    visit_frequency VARCHAR,  <br>
+    preferred_eating_method VARCHAR,  <br>
+    duration_per_visit VARCHAR,  <br>
+    nearest_branch VARCHAR,  <br>
+    membership_card BOOLEAN,  <br>
+    starbucks_products VARCHAR,  <br>
+    brand_quality VARCHAR,  <br>
+    price_rate VARCHAR,  <br>
+    promotion_impact VARCHAR,  <br>
+    ambience_rate VARCHAR,  <br>
+    wifi_quality VARCHAR,  <br>
+    service_rate VARCHAR,  <br>
+    invite_friends_to_starbucks VARCHAR,  <br>
+    promotion_source VARCHAR,  <br>
+    continued_purchase_at_starbucks BOOLEAN  <br>
 )
  - Finally, I imported the [cleaned starbucks datase](https://github.com/ProTeni/SQL_Projects.me/files/11256741/starbucks.csv) into PostgresSQL to begin the analysis.
   ------------------------------------------------------------------------------------
