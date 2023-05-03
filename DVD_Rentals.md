@@ -1,6 +1,14 @@
 
 # DVD-Rentals
 
+As a data analyst working for the DVD rental company, my task is to analyze the company's data to gain insights that can help improve business operations and increase profitability. By leveraging SQL to analyze the company's database, I can answer a series of questions that will provide valuable information to the management team.
+
+![markus-spiske-Skf7HxARcoc-unsplash](https://user-images.githubusercontent.com/97428597/235983331-438adb86-bba5-4061-a88b-25063eb1bd98.jpg)
+-------------------
+
+### **Here are the questions (*and an assessment of my SQL Queries*)**
+
+
 The store would like to know the movie titles of the movies that generated 'an above average rental income' from the 1st of June to the 1st of December in the year 2005.
 
 
