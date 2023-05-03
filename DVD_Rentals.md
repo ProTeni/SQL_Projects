@@ -1,6 +1,15 @@
 
 # DVD-Rentals
 
+**Business Objectives:**
+
+The objective of this business case is to optimize the DVD rental store's operations by leveraging data analytics. The goal is to increase revenue and profitability, improve customer satisfaction, and reduce operational costs. 
+
+
+**Data Analysis:**
+
+The store's data will be analyzed to provide insights into customer preferences, movie popularity, and operational efficiency. 
+
 As a data analyst working for the DVD rental company, my task is to analyze the company's data to gain insights that can help improve business operations and increase profitability. By leveraging SQL to analyze the company's database, I can answer a series of questions that will provide valuable information to the management team.
 
 ![markus-spiske-Skf7HxARcoc-unsplash](https://user-images.githubusercontent.com/97428597/235983331-438adb86-bba5-4061-a88b-25063eb1bd98.jpg)
